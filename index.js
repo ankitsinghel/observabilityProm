@@ -1,5 +1,6 @@
 const express = require("express");
 const client = require("prom-client");  //for metric collection
+const resTime = require("response-time"); //for measuring response time
 const { doSomeTasks } = require("./utils/slowFunction");
 
 const app = express()
@@ -7,7 +8,19 @@ const app = express()
 const collectDefaultMetrics = client.collectDefaultMetrics;
 collectDefaultMetrics({register: client.register});
 
+const excTime= new client.Histogram({
+    name: "execution_time_histogram",
+    help: "Histogram for execution time of doSomeTasks",
+    labelNames: ["method", "route", "code"],
+    buckets: [1, 10, 20, 100, 200, 500, 1000, 2000] 
+});
 
+app.use(resTime((req, res, time) => {
+    excTime.labels({
+        method:req.method,
+         route:req.url,
+         code:res.statusCode}).observe(time); 
+}));
 app.get("/", (req, res) => {
     res.send("Hello, World!");
 });
