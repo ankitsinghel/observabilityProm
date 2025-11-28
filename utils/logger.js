@@ -6,7 +6,7 @@ const logger = createLogger({
   format: format.combine(format.timestamp(), format.json()),
   transports: [
     // Also log to console for local visibility
-    new transports.Console({ format: format.combine(format.colorize(), format.simple()) }),
+    // new transports.Console({ format: format.combine(format.colorize(), format.simple()) }),
     // Send structured logs to Loki with labels that match promtail's static labels
     new LokiTransport({
       host: process.env.LOKI_HOST || 'http://loki:3100',

@@ -1,9 +1,7 @@
-version: "3.8"
+
 
 services:
-  # ---------------------------------------------------
-  # NODE APPLICATION
-  # ---------------------------------------------------
+
   node:
     build: .
     container_name: node-app
