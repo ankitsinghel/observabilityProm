@@ -9,7 +9,11 @@ const app = express()
 
 app.use(resTime((req, res, time) => {
     // console.log(req.originalUrl)
-    reqCounter.inc();
+    reqCounter.inc({
+        method:req.method,
+         route:req.originalUrl,
+         code:res.statusCode
+    });
     excTime.labels({
         method:req.method,
          route:req.originalUrl,
