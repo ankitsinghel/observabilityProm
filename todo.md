@@ -164,7 +164,6 @@ You will see:
 | Node App   | Your backend          | [http://localhost:3000](http://localhost:3000) |
 | Prometheus | Metrics               | [http://localhost:9090](http://localhost:9090) |
 | Loki       | Logs                  | [http://localhost:3100](http://localhost:3100) |
-| Promtail   | Log collector         | (no UI)                                        |
 | Grafana    | Unified observability | [http://localhost:3030](http://localhost:3030) |
 | Tempo      | Tracing backend       | [http://localhost:3200](http://localhost:3200) |
 

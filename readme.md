@@ -4,7 +4,6 @@ A complete observability setup for a Node.js application using:
 
 * **Prometheus** → Metrics
 * **Loki** → Log aggregation
-* **Promtail** → Log shipping
 * **Grafana** → Visualization (metrics, logs)
 * **Node.js App** → Exposes metrics + logs
 
@@ -24,7 +23,6 @@ This project demonstrates **modern observability practices** for Node.js, includ
 ### 🧾 Logging (Loki)
 
 * Winston + Loki transport
-* Promtail scrapes Node logs
 * Docker container logs supported
 * Queryable from Grafana
 
@@ -46,7 +44,6 @@ This project demonstrates **modern observability practices** for Node.js, includ
 | **Node Application** | API + metrics + structured logs  | **3000**        |
 | **Prometheus**       | Metrics scraping & storage       | **9090**        |
 | **Loki**             | Log aggregation backend          | **3100**        |
-| **Promtail**         | Log shipper → sends logs to Loki | *No UI*         |
 | **Grafana**          | Dashboards for metrics/logs      | **3030 → 3000** |
 
 All services run inside Docker Compose.
@@ -76,7 +73,6 @@ docker compose up --build -d
 | **Prometheus UI**     | [http://localhost:9090](http://localhost:9090)                              |
 | **Loki API**          | [http://localhost:3100](http://localhost:3100)                              |
 | **Grafana Dashboard** | [http://localhost:3030](http://localhost:3030) (mapped to container's 3000) |
-| **Promtail API/UI**   | *(no UI – internal)*                                                        |
 
 
 ---
@@ -146,45 +142,9 @@ Or filtered by level:
 
 #### 3️⃣ Node Logs
 
-Promtail sends logs from:
-
-```
-/var/log/node-app/*.log
-```
-
-And Docker container logs:
-
-```
-/var/lib/docker/containers/*/*-json.log
-```
+winston sends logs 
 
 ---
-
-
-
-## 🛠 How Promtail Collects Logs
-
-Promtail collects:
-
-### ✔ Node app logs (Winston)
-
-Mapped via:
-
-```
-./logs:/var/log/node-app
-```
-
-### ✔ Docker container logs
-
-```
-/var/lib/docker/containers/*/*-json.log
-```
-
-These are tagged with:
-
-```
-job="docker-logs"
-```
 
 
 ## 🧪 Health Checks
