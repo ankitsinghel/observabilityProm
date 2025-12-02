@@ -33,18 +33,6 @@ services:
       - "-config.file=/etc/loki/local-config.yaml"
 
 
-  promtail:
-    image: grafana/promtail:2.9.4
-    container_name: promtail
-    volumes:
-      - ./config/promtail-config.yml:/etc/promtail/promtail-config.yml:ro
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - ./logs:/var/log/node-app:ro
-    command:
-      - "-config.file=/etc/promtail/promtail-config.yml"
-    depends_on:
-      - loki
-
   grafana:
     image: grafana/grafana-oss:latest
     container_name: grafana
