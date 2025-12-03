@@ -10,6 +10,7 @@ services:
     depends_on:
       - prom-server
       - loki
+      - tempo
     volumes:
       - ./logs:/var/log/node-app # Node logs read by promtail
 
@@ -32,7 +33,14 @@ services:
     command:
       - "-config.file=/etc/loki/local-config.yaml"
 
-
+  tempo:
+    image: grafana/tempo:latest
+    command: ["-config.file=/etc/tempo.yaml"]
+    volumes:
+      - ./config/tempo.yml:/etc/tempo.yaml:ro   
+    ports:
+      - 3200:3200   
+      - 4318:4318   
   grafana:
     image: grafana/grafana-oss:latest
     container_name: grafana

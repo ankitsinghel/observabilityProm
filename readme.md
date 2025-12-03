@@ -73,8 +73,6 @@ docker compose up --build -d
 | **Prometheus UI**     | [http://localhost:9090](http://localhost:9090)                              |
 | **Loki API**          | [http://localhost:3100](http://localhost:3100)                              |
 | **Grafana Dashboard** | [http://localhost:3030](http://localhost:3030) (mapped to container's 3000) |
-
-
 ---
 
 ## 📡 API Endpoints (Node App)
@@ -162,4 +160,3 @@ http://localhost:9090/targets
 ```
 
 ---
-
